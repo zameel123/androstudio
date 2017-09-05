@@ -33,25 +33,8 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase d;
     SharedPreferences sh;
     public int z,i=0;
-   boolean bp=false;
-    public void onBackPressed(){
-        if(bp)
-        {
-            onBackPressed();
-        }
-        else{
-            int t=1000;
-            bp=true;
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    bp=false;
-                }
-            },t);
-        }
-        onBackPressed();
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
         l=(ListView)findViewById(R.id.studlist);
 
+        studapter=new ArrayAdapter(this,R.layout.studlist,sl);
+        l.setAdapter(studapter);
         d.execSQL("CREATE TABLE IF NOT EXISTS student4("+
                 "name TEXT NOT NULL PRIMARY KEY,"+
                 "branch TEXT NOT NULL,"+
@@ -96,26 +81,24 @@ public class MainActivity extends AppCompatActivity {
                 sl.add(r);
                 resultSet.moveToNext();
             }
+        studapter=new ArrayAdapter(this,R.layout.studlist,sl);
+        l.setAdapter(studapter);
 
-            studapter=new ArrayAdapter(this,R.layout.studlist,sl);
-            l.setAdapter(studapter);
                 z = sh.getInt("count", 0);
                 if (i > z) {
                     z = z + 1;
                     sh.edit().putInt("count", z).apply();
                 }
                 resultSet.close();
-        l.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View view, int pos, long id) {
-                Bundle b = new Bundle();
-                b.putInt("pos",pos);
-                Intent intent = new Intent(MainActivity.this, details.class);
-                intent.putExtra("pos",pos);
-                startActivity(intent);
-            }
-
-
+         l.setOnItemClickListener(new OnItemClickListener() {
+             @Override
+             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                 Bundle b = new Bundle();
+                 b.putInt("pos",pos);
+                 Intent intent = new Intent(MainActivity.this, details.class);
+                 intent.putExtra("pos",pos);
+                 startActivity(intent);
+             }
         } );
 
     }
@@ -127,6 +110,27 @@ public class MainActivity extends AppCompatActivity {
         return true;
 
     }
+    boolean bp=false;
+    @Override
+    public void onBackPressed(){
+        if(bp)
+        {
+            super.onBackPressed();
+        }
+        else{
+            int t=1000;
+            bp=true;
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    bp=false;
+                }
+            },t);
+        }
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

@@ -33,9 +33,7 @@ public class NextActivity extends AppCompatActivity implements OnItemSelectedLis
     RadioButton ra,m,n;
     CheckBox a,b,c;
     public String i;
-    public void onBackPressed(){
-        onBackPressed();
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +107,10 @@ public class NextActivity extends AppCompatActivity implements OnItemSelectedLis
                               }
         );
            }
+    @Override
+    public void onBackPressed(){
+       super. onBackPressed();
+    }
             @Override
             public  void onItemSelected(AdapterView<?> parent,View view,int position,long id) {
                   i = parent.getItemAtPosition(position).toString();}
