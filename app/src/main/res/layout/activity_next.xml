@@ -131,7 +131,7 @@
         android:textSize="18sp" />
 
     <Button
-        android:text="Button"
+        android:text="SUBMIT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/b1"

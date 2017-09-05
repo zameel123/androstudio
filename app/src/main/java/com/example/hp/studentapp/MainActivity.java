@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     Button AddStudent;
     SQLiteDatabase d;
     SharedPreferences sh;
-    public Intent intent;
     public int z,i=0;
    boolean bp=false;
     public void onBackPressed(){
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sl.add("Name\nBranch");
         sh=getSharedPreferences("demo",MODE_PRIVATE);
         l=(ListView)findViewById(R.id.studlist);
         d=openOrCreateDatabase("database",MODE_PRIVATE,null);
@@ -107,16 +105,13 @@ public class MainActivity extends AppCompatActivity {
                     sh.edit().putInt("count", z).apply();
                 }
                 resultSet.close();
-              //  return;
         l.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int pos, long id) {
-                Toast.makeText(MainActivity.this, "intent", Toast.LENGTH_LONG).show();
                 Bundle b = new Bundle();
-                String[] nb=sl.get(pos).split("\n");
-                b.putString("nam",nb[0]);
-                 intent = new Intent(MainActivity.this, details.class);
-                intent.putExtras(b);
+                b.putInt("pos",pos);
+                Intent intent = new Intent(MainActivity.this, details.class);
+                intent.putExtra("pos",pos);
                 startActivity(intent);
             }
 
