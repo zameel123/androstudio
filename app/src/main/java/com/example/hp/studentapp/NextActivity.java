@@ -51,7 +51,7 @@ public class NextActivity extends AppCompatActivity implements OnItemSelectedLis
         db.execSQL("CREATE TABLE IF NOT EXISTS student4("+
                 "name TEXT NOT NULL PRIMARY KEY,"+
                 "branch TEXT NOT NULL ,"+
-                "gender TEXT DEFAULT MALE ,"+
+                "gender TEXT NOT NULL DEFAULT MALE ,"+
                 "web INT NOT NULL CHECK (web IN (0,1)),"+
                 "android INT NOT NULL CHECK (android IN (0,1)),"+
                 "design INT NOT NULL CHECK (design IN (0,1)));");
@@ -109,7 +109,7 @@ public class NextActivity extends AppCompatActivity implements OnItemSelectedLis
            }
     @Override
     public void onBackPressed(){
-       super. onBackPressed();
+        onBackPressed();
     }
             @Override
             public  void onItemSelected(AdapterView<?> parent,View view,int position,long id) {
